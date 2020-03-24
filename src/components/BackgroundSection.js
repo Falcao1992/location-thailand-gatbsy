@@ -1,55 +1,63 @@
 import React from 'react'
-import {graphql, StaticQuery} from 'gatsby'
+import {graphql, useStaticQuery} from 'gatsby'
 import styled from 'styled-components'
 import "typeface-pinyon-script"
 import BackgroundImage from 'gatsby-background-image-es5'
 import PropTypes from "prop-types";
 
-const BackgroundSection = ({className, siteTitle}) => (
+const BackgroundSection = ({className, siteTitle }) => {
 
-    <StaticQuery
-        query={graphql`
-      query {
-        desktop: file(relativePath: { eq: "banniere-home.jpg" }) {
-          childImageSharp {
-            fluid(quality: 90, maxWidth: 1920) {
-              ...GatsbyImageSharpFluid_withWebp
+    const data = useStaticQuery(graphql`
+        query {
+            banniereHome: file(relativePath: { eq: "banniere/banniere-home.jpg" }) {
+                childImageSharp {
+                    fluid(quality: 90, maxWidth: 1920) {
+                        ...GatsbyImageSharpFluid_withWebp
+                    }
+                }
             }
-          }
+            desktop2: file(relativePath: { eq: "banniere/gatsby-astronaut.png" }) {
+                childImageSharp {
+                    fluid(quality: 90, maxWidth: 1920) {
+                        ...GatsbyImageSharpFluid_withWebp
+                    }
+                }
+            }
         }
-      }
-    `}
-        render={data => {
-            // Set ImageData.
-            const imageData = data.desktop.childImageSharp.fluid;
-            return (
-                <BackgroundImage
-                    Tag="section"
-                    className={className}
-                    fluid={imageData}
-                    //backgroundColor={`#040e18`}
-                >
-                    <TopBar>
-                        <div className="acceuil">
-                            <MenuItem href="index.html" className="menu-items">{siteTitle}</MenuItem>
-                        </div>
-                        <nav>
-                            <MenuItem href="#">Appartement</MenuItem>
-                            <MenuItem href="#">Activité</MenuItem>
-                            <MenuItem href="#">A Savoir</MenuItem>
-                            <MenuItem href="#">Nous contacter</MenuItem>
-                        </nav>
-                    </TopBar>
-                    <Baseline>
-                        <span>welcome</span>
-                        <strong>Pattaya</strong>
-                        <p>des appartements pour vos vacances</p>
-                    </Baseline>
-                </BackgroundImage>
-            )
-        }}
-    />
-)
+    `);
+
+    const imageBanniereHome = data.banniereHome.childImageSharp.fluid;
+    const imageData2 = data.desktop2.childImageSharp.fluid;
+
+    return (
+        <BackgroundImage
+            Tag="section"
+            className={className}
+            fluid={imageBanniereHome}
+            //backgroundColor={`#040e18`}
+        >
+            <TopBar>
+                <div className="acceuil">
+                    <MenuItem href="#">{siteTitle}</MenuItem>
+                </div>
+                {console.log(imageBanniereHome)}
+                {console.log(imageData2)}
+                <nav>
+                    <MenuItem href="#">Appartement</MenuItem>
+                    <MenuItem href="#">Activité</MenuItem>
+                    <MenuItem href="#">A Savoir</MenuItem>
+                    <MenuItem href="#">Nous contacter</MenuItem>
+                </nav>
+            </TopBar>
+            <Baseline>
+                <span>welcome</span>
+                <strong>Pattaya</strong>
+                <p>des appartements pour vos vacances</p>
+            </Baseline>
+        </BackgroundImage>
+    )
+};
+
 
 const StyledBackgroundSection = styled(BackgroundSection)`
     color: ${props => props.theme.color.primary};
@@ -110,5 +118,6 @@ BackgroundSection.propTypes = {
 BackgroundSection.defaultProps = {
     siteTitle: ``,
 };
+
 
 export default StyledBackgroundSection
