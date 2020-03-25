@@ -14,7 +14,7 @@ import styled from "styled-components";
  * - `useStaticQuery`: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-const Image = ({categoryName}) => {
+const Image = ({categoryKey, pathName}) => {
   const data = useStaticQuery(graphql`
       query {
           activityCategory: file(relativePath: { eq: "category/activitesCategory.jpg" }) {
@@ -51,14 +51,21 @@ const Image = ({categoryName}) => {
       }
   `);
 
+  const handleChooseArticlesPicture = () => {
+    if(pathName === "/") {
+      handleChooseCategoryImage()
+    }
+  }
+
   const handleChooseCategoryImage = () => {
-    if(categoryName === "interets") {
+    if(categoryKey === "interets") {
+      console.log(pathName)
       return lieux_interetsCategory
-    } else if (categoryName === "activity") {
+    } else if (categoryKey === "activity") {
       return activityCategory
-    } else if (categoryName === "residences") {
+    } else if (categoryKey === "residences") {
       return residencesCategory
-    }else if (categoryName === "savoir") {
+    }else if (categoryKey === "savoir") {
       return savoirCategory
     }
   };

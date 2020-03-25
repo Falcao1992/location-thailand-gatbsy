@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import {Link} from 'gatsby'
 import styled from 'styled-components'
 import "typeface-pinyon-script"
@@ -6,42 +6,36 @@ import firebase from "gatsby-plugin-firebase";
 import Img from "./image";
 
 
-const Category = () => {
-    const [firebaseDataCategory, setFirebaseDataCategory] = useState([]);
+const Category = ({firebaseDataArticles, pathName}) => {
 
-    useEffect(() => {
-        firebase
-            .database()
-            .ref("/category")
-            .once("value")
-            .then(snapshot => {
-                setFirebaseDataCategory(Object.values(snapshot.val()));
-
-            })
-    }, []);
+    const handleRenderImage = (articleKey) => {
+        if(pathName) {
+            return  <Img categoryKey={articleKey} pathName={pathName}/>
+        }
+    };
 
     return (
         <>
-            {firebaseDataCategory && firebaseDataCategory.map((category, index) => {
+            {firebaseDataArticles && firebaseDataArticles.map((article, index) => {
                 return (
-                    <CategoryContent key={index}>
-                        <Img categoryName={category.key}/>
-                        <CategoryTittle><span>{category.name}</span>{category.title}</CategoryTittle>
-                        <p>{category.content}</p>
+                    <ArticleContent key={index}>
+                        {handleRenderImage(article.key)}
+                        <ArticleTittle><span>{article.name}</span>{article.title}</ArticleTittle>
+                        <p>{article.content}</p>
                         <SeeMoreLink to="#"><span>voir plus ></span></SeeMoreLink>
-                    </CategoryContent>
+                    </ArticleContent>
                 )
             })}
         </>
     )
 };
 
-    const CategoryContent = styled.div`
+    const ArticleContent = styled.div`
           padding: 5px 10px;
           margin-bottom: 20px
     `;
 
-    const CategoryTittle = styled.h2`
+    const ArticleTittle = styled.h2`
         font-size: 1.7rem;
         text-transform: uppercase;
         letter-spacing: 2px;
