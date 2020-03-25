@@ -1,22 +1,26 @@
-import React from 'react'
-import {graphql, useStaticQuery} from 'gatsby'
+import React, {useState} from 'react'
+import {graphql, Link, useStaticQuery} from 'gatsby'
 import styled from 'styled-components'
 import "typeface-pinyon-script"
 import BackgroundImage from 'gatsby-background-image-es5'
 import PropTypes from "prop-types";
 
-const BackgroundSection = ({className, siteTitle }) => {
+
+const BackgroundSection = ({ className }) => {
+    const [currentPath, setCurrentPath] = useState();
 
     const data = useStaticQuery(graphql`
         query {
-            banniereHome: file(relativePath: { eq: "banniere/banniere-home.jpg" }) {
+      
+            homeBanner: file(relativePath: { eq: "banner/homeBanner.jpg" }) {
                 childImageSharp {
                     fluid(quality: 90, maxWidth: 1920) {
                         ...GatsbyImageSharpFluid_withWebp
                     }
                 }
             }
-            desktop2: file(relativePath: { eq: "banniere/gatsby-astronaut.png" }) {
+            
+            apartmentsBanner: file(relativePath: { eq: "banner/apartmentsBanner.jpg" }) {
                 childImageSharp {
                     fluid(quality: 90, maxWidth: 1920) {
                         ...GatsbyImageSharpFluid_withWebp
@@ -26,27 +30,37 @@ const BackgroundSection = ({className, siteTitle }) => {
         }
     `);
 
-    const imageBanniereHome = data.banniereHome.childImageSharp.fluid;
-    const imageData2 = data.desktop2.childImageSharp.fluid;
+    const homeBanner = data.homeBanner.childImageSharp.fluid;
+    const apartmentsBanner = data.apartmentsBanner.childImageSharp.fluid;
+
+    const isActive = ({ isCurrent, location}) => {
+        if (location.pathname.length > 1) {
+            let name = location.pathname.replace("/","").concat("Banner");
+            setCurrentPath(name)
+        }
+        return isCurrent ? { className: "active" } : {}
+    };
+
+    const ExactNavLink = props => (
+        <Link getProps={isActive} {...props} />
+    );
 
     return (
         <BackgroundImage
             Tag="section"
             className={className}
-            fluid={imageBanniereHome}
+            fluid={currentPath === undefined ? homeBanner : currentPath === "apartmentsBanner" && apartmentsBanner}
             //backgroundColor={`#040e18`}
         >
             <TopBar>
-                <div className="acceuil">
-                    <MenuItem href="#">{siteTitle}</MenuItem>
+                <div>
+                    <ExactNavLink to="/" ><MenuItem>Location d'Appartements à Pattaya</MenuItem></ExactNavLink>
                 </div>
-                {console.log(imageBanniereHome)}
-                {console.log(imageData2)}
                 <nav>
-                    <MenuItem href="#">Appartement</MenuItem>
-                    <MenuItem href="#">Activité</MenuItem>
-                    <MenuItem href="#">A Savoir</MenuItem>
-                    <MenuItem href="#">Nous contacter</MenuItem>
+                    <ExactNavLink to="/apartments" ><MenuItem>Appartement</MenuItem></ExactNavLink>
+                    <ExactNavLink to="/"><MenuItem>Activité</MenuItem></ExactNavLink>
+                    <ExactNavLink to="/"><MenuItem>A Savoir</MenuItem></ExactNavLink>
+                    <ExactNavLink to="/"><MenuItem>Nous contacter</MenuItem></ExactNavLink>
                 </nav>
             </TopBar>
             <Baseline>
@@ -57,7 +71,6 @@ const BackgroundSection = ({className, siteTitle }) => {
         </BackgroundImage>
     )
 };
-
 
 const StyledBackgroundSection = styled(BackgroundSection)`
     color: ${props => props.theme.color.primary};
@@ -72,11 +85,11 @@ const TopBar = styled.div`
         }
     `;
 
-const MenuItem = styled.a`
+const MenuItem = styled.span`
     font-size: .975rem;
     display: inline-block;
     margin: 0 15px;
-    color: inherit;
+    color: ${props => props.theme.color.primary};
     text-decoration: none;
     transition: color .3s;
         &:hover {
