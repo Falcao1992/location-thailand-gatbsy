@@ -1,6 +1,7 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
+import styled from "styled-components";
 
 /*
  * This component is built using `gatsby-image` to automatically serve optimized
@@ -13,20 +14,68 @@ import Img from "gatsby-image"
  * - `useStaticQuery`: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-const Image = () => {
+const Image = ({categoryName}) => {
   const data = useStaticQuery(graphql`
-    query {
-      placeholderImage: file(relativePath: { eq: "banniere/banniere-home.jpg" }) {
-        childImageSharp {
-          fluid(maxWidth: 300) {
-            ...GatsbyImageSharpFluid
+      query {
+          activityCategory: file(relativePath: { eq: "category/activitesCategory.jpg" }) {
+              childImageSharp {
+                  fluid(maxWidth: 300) {
+                      ...GatsbyImageSharpFluid
+                  }
+              }
           }
-        }
+          
+          lieux_interetsCategory: file(relativePath: { eq: "category/lieux_interetsCategory.jpg" }) {
+              childImageSharp {
+                  fluid(maxWidth: 300) {
+                      ...GatsbyImageSharpFluid
+                  }
+              }
+          }
+          
+          residencesCategory: file(relativePath: { eq: "category/residencesCategory.jpg" }) {
+              childImageSharp {
+                  fluid(maxWidth: 300) {
+                      ...GatsbyImageSharpFluid
+                  }
+              }
+          }
+          
+          savoirCategory: file(relativePath: { eq: "category/savoirCategory.jpg" }) {
+              childImageSharp {
+                  fluid(maxWidth: 300) {
+                      ...GatsbyImageSharpFluid
+                  }
+              }
+          }
       }
-    }
-  `)
+  `);
 
-  return <Img fluid={data.placeholderImage.childImageSharp.fluid} />
-}
+  const handleChooseCategoryImage = () => {
+    if(categoryName === "interets") {
+      return lieux_interetsCategory
+    } else if (categoryName === "activity") {
+      return activityCategory
+    } else if (categoryName === "residences") {
+      return residencesCategory
+    }else if (categoryName === "savoir") {
+      return savoirCategory
+    }
+  };
+
+  const activityCategory = data.activityCategory.childImageSharp.fluid;
+  const lieux_interetsCategory = data.lieux_interetsCategory.childImageSharp.fluid;
+  const residencesCategory = data.residencesCategory.childImageSharp.fluid;
+  const savoirCategory = data.savoirCategory.childImageSharp.fluid;
+
+  return <StyledImg
+      fluid={handleChooseCategoryImage()}
+  />
+};
+
+const StyledImg = styled(Img)`
+    border: ${props => props.theme.color.secondary} 1px solid;
+    margin-bottom: 20px;
+    `;
 
 export default Image

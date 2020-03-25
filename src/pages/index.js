@@ -1,27 +1,17 @@
-import React, {useState,useEffect} from "react"
+import React from "react"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import firebase from "gatsby-plugin-firebase"
 import StyledBackgroundSection from "../components/BackgroundSection";
+import Category from "../components/Category";
 
 
 const IndexPage = () => {
-    const [firebaseData, setFirebaseData] = useState([]);
-
-    useEffect(() => {
-        firebase
-            .database()
-            .ref("/test")
-            .once("value")
-            .then(snapshot => {
-                setFirebaseData(snapshot.val())
-            })
-    }, []);
 
     return (
         <Layout>
             <StyledBackgroundSection />
+            <Category/>
             <SEO title="Home"/>
         </Layout>
 

@@ -45,11 +45,19 @@ const BackgroundSection = ({ className }) => {
         <Link getProps={isActive} {...props} />
     );
 
+    const handleChooseBackgroundImage = () => {
+        if(currentPath === undefined) {
+            return homeBanner
+        } else if (currentPath === "apartmentsBanner") {
+            return apartmentsBanner
+        }
+    };
+
     return (
         <BackgroundImage
             Tag="section"
             className={className}
-            fluid={currentPath === undefined ? homeBanner : currentPath === "apartmentsBanner" && apartmentsBanner}
+            fluid={handleChooseBackgroundImage()}
             //backgroundColor={`#040e18`}
         >
             <TopBar>
