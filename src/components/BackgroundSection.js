@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {graphql, Link, useStaticQuery} from 'gatsby'
 import styled from 'styled-components'
 import "typeface-pinyon-script"
@@ -6,8 +6,7 @@ import BackgroundImage from 'gatsby-background-image-es5'
 import PropTypes from "prop-types";
 
 
-const BackgroundSection = ({ className }) => {
-    const [currentPath, setCurrentPath] = useState();
+const BackgroundSection = ({ className, pathName }) => {
 
     const data = useStaticQuery(graphql`
         query {
@@ -33,23 +32,13 @@ const BackgroundSection = ({ className }) => {
     const homeBanner = data.homeBanner.childImageSharp.fluid;
     const apartmentsBanner = data.apartmentsBanner.childImageSharp.fluid;
 
-    const isActive = ({ isCurrent, location}) => {
-        if (location.pathname.length > 1) {
-            let name = location.pathname.replace("/","").concat("Banner");
-            setCurrentPath(name)
-        }
-        return isCurrent ? { className: "active" } : {}
-    };
-
-    const ExactNavLink = props => (
-        <Link getProps={isActive} {...props} />
-    );
-
     const handleChooseBackgroundImage = () => {
-        if(currentPath === undefined) {
+        if(pathName === "") {
             return homeBanner
-        } else if (currentPath === "apartmentsBanner") {
+        } else if (pathName === "apartments/") {
             return apartmentsBanner
+        } else {
+            console.log("else", pathName)
         }
     };
 
@@ -62,13 +51,13 @@ const BackgroundSection = ({ className }) => {
         >
             <TopBar>
                 <div>
-                    <ExactNavLink to="/" ><MenuItem>Location d'Appartements à Pattaya</MenuItem></ExactNavLink>
+                    <Link to="/" ><MenuItem>Location d'Appartements à Pattaya</MenuItem></Link>
                 </div>
                 <nav>
-                    <ExactNavLink to="/apartments" ><MenuItem>Appartement</MenuItem></ExactNavLink>
-                    <ExactNavLink to="/"><MenuItem>Activité</MenuItem></ExactNavLink>
-                    <ExactNavLink to="/"><MenuItem>A Savoir</MenuItem></ExactNavLink>
-                    <ExactNavLink to="/"><MenuItem>Nous contacter</MenuItem></ExactNavLink>
+                    <Link to="/apartments" ><MenuItem>Appartement</MenuItem></Link>
+                    <Link to="/"><MenuItem>Activité</MenuItem></Link>
+                    <Link to="/"><MenuItem>A Savoir</MenuItem></Link>
+                    <Link to="/"><MenuItem>Nous contacter</MenuItem></Link>
                 </nav>
             </TopBar>
             <Baseline>

@@ -2,7 +2,6 @@ import React from 'react'
 import {Link} from 'gatsby'
 import styled from 'styled-components'
 import "typeface-pinyon-script"
-import firebase from "gatsby-plugin-firebase";
 import Img from "./image";
 
 
