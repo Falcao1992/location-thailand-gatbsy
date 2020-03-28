@@ -4,7 +4,7 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import StyledBackgroundSection from "../components/BackgroundSection";
 import firebase from "gatsby-plugin-firebase";
-import Category from "../components/Category";
+import Articles from "../components/Articles";
 
 const SecondPage = ({path}) => {
     const [firebaseDataApartments, setFirebaseDataApartments] = useState([]);
@@ -27,8 +27,7 @@ const SecondPage = ({path}) => {
         <Layout>
             <SEO title="Apartments"/>
             <StyledBackgroundSection pathName={path.replace("/", "")}/>
-            <Category firebaseDataArticles={firebaseDataApartments} pathName={path}/>
-
+            <Articles firebaseDataArticles={firebaseDataApartments} pathName={path}/>
         </Layout>
     )
 };

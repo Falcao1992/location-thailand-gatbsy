@@ -6,7 +6,7 @@ import ImageArticle from "./ImageArticle";
 import "typeface-pinyon-script"
 
 
-const Category = ({firebaseDataArticles, pathName}) => {
+const Articles = ({firebaseDataArticles, pathName}) => {
 
     const handleRenderImage = (articleImageId) => {
         if(pathName) {
@@ -24,6 +24,9 @@ const Category = ({firebaseDataArticles, pathName}) => {
         }
     }; */
 
+
+    // TODO CREATE DYNAMIC LINK FOR "SEEMORE LINK"
+
     return (
         <>
             {firebaseDataArticles && firebaseDataArticles.map((article, index) => {
@@ -33,7 +36,6 @@ const Category = ({firebaseDataArticles, pathName}) => {
                         <ArticleTittle><span>{article.name}</span>{article.title}</ArticleTittle>
                         <p>{article.content}</p>
                         <SeeMoreLink to="#"><span>voir plus ></span></SeeMoreLink>
-
                     </ArticleContent>
                 )
             })}
@@ -84,4 +86,4 @@ const Category = ({firebaseDataArticles, pathName}) => {
 
 
 
-export default Category
+export default Articles
