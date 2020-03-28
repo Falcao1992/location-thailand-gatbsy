@@ -5,28 +5,31 @@ import SEO from "../components/seo"
 import StyledBackgroundSection from "../components/BackgroundSection";
 import firebase from "gatsby-plugin-firebase";
 import Category from "../components/Category";
-import Test from "../components/Test";
 
 const SecondPage = ({path}) => {
     const [firebaseDataApartments, setFirebaseDataApartments] = useState([]);
 
     useEffect(() => {
-        firebase
-            .database()
-            .ref("/pagesPicturesData/apartments")
-            .once("value")
-            .then(snapshot => {
-                setFirebaseDataApartments(Object.values(snapshot.val()));
-            })
+        fetchDataApartments()
     }, []);
 
+    const fetchDataApartments = async () => {
+        await firebase.database().ref("/pagesPicturesData/apartments").once("value")
+            .then(snapshot => {
+                return setFirebaseDataApartments(Object.values(snapshot.val()));
+            })
+            .catch((error) => {
+                console.error(error)
+            })
+    };
+
     return (
-    <Layout>
-        <SEO title="Apartments"/>
-        <StyledBackgroundSection pathName={path.replace("/","")}/>
-        <Category firebaseDataArticles={firebaseDataApartments} pathName={path}/>
-        <Test/>
-    </Layout>
+        <Layout>
+            <SEO title="Apartments"/>
+            <StyledBackgroundSection pathName={path.replace("/", "")}/>
+            <Category firebaseDataArticles={firebaseDataApartments} pathName={path}/>
+
+        </Layout>
     )
 };
 

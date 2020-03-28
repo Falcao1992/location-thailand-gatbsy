@@ -1,30 +1,43 @@
 import React from 'react'
 import {Link} from 'gatsby'
 import styled from 'styled-components'
+import ImageArticle from "./ImageArticle";
+
 import "typeface-pinyon-script"
-import Img from "./image";
 
 
 const Category = ({firebaseDataArticles, pathName}) => {
 
-    const handleRenderImage = (articleKey) => {
+    const handleRenderImage = (articleImageId) => {
         if(pathName) {
-            return  <Img categoryKey={articleKey} pathName={pathName}/>
+            return <ImageArticle articleImageId={articleImageId}/>
         }
     };
+
+    // get path and change /apartments/ to apartments and / to home
+    /* const formatPathName = (path) => {
+        const regex = new RegExp("/", "g");
+        if (path === "/") {
+            return "home"
+        } else {
+            return path.replace(regex, "")
+        }
+    }; */
 
     return (
         <>
             {firebaseDataArticles && firebaseDataArticles.map((article, index) => {
                 return (
                     <ArticleContent key={index}>
-                        {handleRenderImage(article.key)}
+                        {handleRenderImage(article.idImage)}
                         <ArticleTittle><span>{article.name}</span>{article.title}</ArticleTittle>
                         <p>{article.content}</p>
                         <SeeMoreLink to="#"><span>voir plus ></span></SeeMoreLink>
+
                     </ArticleContent>
                 )
             })}
+
         </>
     )
 };
