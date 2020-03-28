@@ -8,22 +8,23 @@ import firebase from "gatsby-plugin-firebase";
 
 
 const IndexPage = ({path}) => {
-    const [firebaseDataCategory, setFirebaseDataCategory] = useState([]);
+    const [firebaseDataHome, setFirebaseDataHome] = useState([]);
 
     useEffect(() => {
         firebase
             .database()
-            .ref("/category")
+            .ref("/home")
             .once("value")
             .then(snapshot => {
-                setFirebaseDataCategory(Object.values(snapshot.val()));
+                setFirebaseDataHome(Object.values(snapshot.val()));
+                console.log(Object.values(snapshot.val()));
             })
     }, []);
 
     return (
         <Layout>
             <StyledBackgroundSection pathName={path.replace("/","")}  />
-            <Category firebaseDataArticles={firebaseDataCategory} pathName={path}/>
+            <Category firebaseDataArticles={firebaseDataHome} pathName={path}/>
             <SEO title="Home"/>
         </Layout>
 

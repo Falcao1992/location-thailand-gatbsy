@@ -17,7 +17,7 @@ import styled from "styled-components";
 const Image = ({categoryKey, pathName}) => {
   const data = useStaticQuery(graphql`
       query {
-          activityCategory: file(relativePath: { eq: "category/activitesCategory.jpg" }) {
+          activityHome: file(relativePath: { eq: "homePicture/activityHome.jpg" }) {
               childImageSharp {
                   fluid(maxWidth: 300) {
                       ...GatsbyImageSharpFluid
@@ -25,7 +25,7 @@ const Image = ({categoryKey, pathName}) => {
               }
           }
           
-          lieux_interetsCategory: file(relativePath: { eq: "category/lieux_interetsCategory.jpg" }) {
+          interestHome: file(relativePath: { eq: "homePicture/interestHome.jpg" }) {
               childImageSharp {
                   fluid(maxWidth: 300) {
                       ...GatsbyImageSharpFluid
@@ -33,7 +33,7 @@ const Image = ({categoryKey, pathName}) => {
               }
           }
           
-          residencesCategory: file(relativePath: { eq: "category/residencesCategory.jpg" }) {
+          apartmentsHome: file(relativePath: { eq: "homePicture/apartmentsHome.jpg" }) {
               childImageSharp {
                   fluid(maxWidth: 300) {
                       ...GatsbyImageSharpFluid
@@ -41,7 +41,7 @@ const Image = ({categoryKey, pathName}) => {
               }
           }
           
-          savoirCategory: file(relativePath: { eq: "category/savoirCategory.jpg" }) {
+          aboutHome: file(relativePath: { eq: "homePicture/aboutHome.jpg" }) {
               childImageSharp {
                   fluid(maxWidth: 300) {
                       ...GatsbyImageSharpFluid
@@ -50,7 +50,7 @@ const Image = ({categoryKey, pathName}) => {
           }
           
           
-          residenceAmazonPiscine: file(relativePath: { eq: "picturesResidenceAmazon/residenceAmazonPiscine.jpg" }) {
+          amazonSwimmingPool: file(relativePath: { eq: "apartmentsPicture/amazonPicture/amazonSwimmingPool.jpg" }) {
               childImageSharp {
                   fluid(maxWidth: 300) {
                       ...GatsbyImageSharpFluid
@@ -58,7 +58,7 @@ const Image = ({categoryKey, pathName}) => {
               }
           }
           
-          residenceAmazonRestaurant: file(relativePath: { eq: "picturesResidenceAmazon/residenceAmazonRestaurant.jpg" }) {
+          amazonRestaurant: file(relativePath: { eq: "apartmentsPicture/amazonPicture/amazonRestaurant.jpg" }) {
               childImageSharp {
                   fluid(maxWidth: 300) {
                       ...GatsbyImageSharpFluid
@@ -66,7 +66,7 @@ const Image = ({categoryKey, pathName}) => {
               }
           }
           
-          residenceAmazonSalon: file(relativePath: { eq: "picturesResidenceAmazon/residenceAmazonSalon.jpg" }) {
+          amazonRoomApartments: file(relativePath: { eq: "apartmentsPicture/amazonPicture/amazonRoomApartments.jpg" }) {
               childImageSharp {
                   fluid(maxWidth: 300) {
                       ...GatsbyImageSharpFluid
@@ -74,7 +74,7 @@ const Image = ({categoryKey, pathName}) => {
               }
           }
           
-          residenceAmazonSport: file(relativePath: { eq: "picturesResidenceAmazon/residenceAmazonSport.jpg" }) {
+          amazonSports: file(relativePath: { eq: "apartmentsPicture/amazonPicture/amazonSports.jpg" }) {
               childImageSharp {
                   fluid(maxWidth: 300) {
                       ...GatsbyImageSharpFluid
@@ -85,35 +85,36 @@ const Image = ({categoryKey, pathName}) => {
   `);
 
   const handleChooseCategoryImage = () => {
-      if (categoryKey === "interets") {
-          console.log(pathName)
-          return lieux_interetsCategory
+      console.log(categoryKey, "categoryKey")
+      if (categoryKey === "interest") {
+          return interestHome
       } else if (categoryKey === "activity") {
-          return activityCategory
-      } else if (categoryKey === "residences") {
-          return residencesCategory
-      } else if (categoryKey === "savoir") {
-          return savoirCategory
-      } else if (categoryKey === "piscine") {
-          return residenceAmazonPiscine
-      } else if (categoryKey === "salon") {
-          return residenceAmazonSalon
-      } else if (categoryKey === "sport") {
-          return residenceAmazonSport
+          console.log(activityHome)
+          return activityHome
+      } else if (categoryKey === "apartments") {
+          return apartmentsHome
+      } else if (categoryKey === "about") {
+          return aboutHome
+      } else if (categoryKey === "swimmingPool") {
+          return amazonSwimmingPool
+      } else if (categoryKey === "roomApartments") {
+          return amazonRoomApartments
+      } else if (categoryKey === "sports") {
+          return amazonSports
       } else if (categoryKey === "restaurant") {
-          return residenceAmazonRestaurant
+          return amazonRestaurant
       }
   };
 
-  const activityCategory = data.activityCategory.childImageSharp.fluid;
-  const lieux_interetsCategory = data.lieux_interetsCategory.childImageSharp.fluid;
-  const residencesCategory = data.residencesCategory.childImageSharp.fluid;
-  const savoirCategory = data.savoirCategory.childImageSharp.fluid;
+  const activityHome = data.activityHome.childImageSharp.fluid;
+  const interestHome = data.interestHome.childImageSharp.fluid;
+  const apartmentsHome = data.apartmentsHome.childImageSharp.fluid;
+  const aboutHome = data.aboutHome.childImageSharp.fluid;
 
-  const residenceAmazonPiscine = data.residenceAmazonPiscine.childImageSharp.fluid;
-  const residenceAmazonSalon = data.residenceAmazonSalon.childImageSharp.fluid;
-  const residenceAmazonSport = data.residenceAmazonSport.childImageSharp.fluid;
-  const residenceAmazonRestaurant = data.residenceAmazonRestaurant.childImageSharp.fluid;
+  const amazonSwimmingPool = data.amazonSwimmingPool.childImageSharp.fluid;
+  const amazonRoomApartments = data.amazonRoomApartments.childImageSharp.fluid;
+  const amazonSports = data.amazonSports.childImageSharp.fluid;
+  const amazonRestaurant = data.amazonRestaurant.childImageSharp.fluid;
 
 
 
