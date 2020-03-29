@@ -26,17 +26,37 @@ const BackgroundSection = ({ className, pathName }) => {
                     }
                 }
             }
+            activityBanner: file(relativePath: { eq: "banner/activityBanner.jpg" }) {
+                childImageSharp {
+                    fluid(quality: 90, maxWidth: 1920) {
+                        ...GatsbyImageSharpFluid_withWebp
+                    }
+                }
+            }
+            aboutBanner: file(relativePath: { eq: "banner/aboutBanner.jpg" }) {
+                childImageSharp {
+                    fluid(quality: 90, maxWidth: 1920) {
+                        ...GatsbyImageSharpFluid_withWebp
+                    }
+                }
+            }
         }
     `);
 
     const homeBanner = data.homeBanner.childImageSharp.fluid;
     const apartmentsBanner = data.apartmentsBanner.childImageSharp.fluid;
+    const aboutBanner = data.aboutBanner.childImageSharp.fluid;
+    const activityBanner = data.activityBanner.childImageSharp.fluid;
 
     const handleChooseBackgroundImage = () => {
         if(pathName === "") {
             return homeBanner
         } else if (pathName === "apartments/") {
             return apartmentsBanner
+        } else if (pathName === "activity/") {
+            return activityBanner
+        } else if (pathName === "about/") {
+            return aboutBanner
         } else {
             console.log("else", pathName)
         }
@@ -55,8 +75,8 @@ const BackgroundSection = ({ className, pathName }) => {
                 </div>
                 <nav>
                     <Link to="/apartments" ><MenuItem>Appartement</MenuItem></Link>
-                    <Link to="/"><MenuItem>Activité</MenuItem></Link>
-                    <Link to="/"><MenuItem>A Savoir</MenuItem></Link>
+                    <Link to="/activity"><MenuItem>Activité</MenuItem></Link>
+                    <Link to="/about"><MenuItem>A Savoir</MenuItem></Link>
                     <Link to="/"><MenuItem>Nous contacter</MenuItem></Link>
                 </nav>
             </TopBar>

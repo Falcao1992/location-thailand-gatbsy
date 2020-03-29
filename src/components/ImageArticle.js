@@ -26,6 +26,7 @@ const ImageArticle = ( { articleImageId } ) => {
     `);
 
     const allImagesData = data.allImageSharp.edges;
+    console.log(allImagesData, "all data image")
 
     return (
         <div>
