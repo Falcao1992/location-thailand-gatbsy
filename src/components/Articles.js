@@ -15,14 +15,14 @@ const Articles = ({firebaseDataArticles, pathName}) => {
     };
 
     // get path and change /apartments/ to apartments and / to home
-    /* const formatPathName = (path) => {
+    const formatPathName = (path) => {
         const regex = new RegExp("/", "g");
         if (path === "/") {
             return "home"
         } else {
             return path.replace(regex, "")
         }
-    }; */
+    };
 
 
     // TODO CREATE DYNAMIC LINK FOR "SEEMORE LINK"
@@ -35,7 +35,8 @@ const Articles = ({firebaseDataArticles, pathName}) => {
                         {handleRenderImage(article.idImage)}
                         <ArticleTittle><span>{article.name}</span>{article.title}</ArticleTittle>
                         <p>{article.content}</p>
-                        <SeeMoreLink to="#"><span>voir plus ></span></SeeMoreLink>
+                        {formatPathName(pathName) === "home" && <SeeMoreLink to={`/${article.key}#${article.idImage}`}><span>voir plus ></span></SeeMoreLink>}
+                        {console.log(article, "article")}
                     </ArticleContent>
                 )
             })}

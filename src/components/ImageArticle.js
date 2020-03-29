@@ -31,10 +31,12 @@ const ImageArticle = ( { articleImageId } ) => {
         <div>
             {allImagesData.filter(imageFilter => imageFilter.node.id === articleImageId).map((image, index) => {
                 return (
+                    <div id={image.node.id} key={index}>
                         <StyledImg
-                            key={index}
                             fluid={image.node.fluid}
+                            alt={image.node.fluid.originalName.replace(/.jpg/||/.png/, "")}
                         />
+                    </div>
                 )
             } )}
         </div>
