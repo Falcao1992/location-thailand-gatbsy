@@ -3,9 +3,8 @@ import React, {useEffect, useState} from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import StyledBackgroundSection from "../components/BackgroundSection";
-import firebase from "gatsby-plugin-firebase";
 import Articles from "../components/Articles";
-
+import app from "../firebase";
 
 const Activty = ({path}) => {
     const [firebaseDataActivity, setFirebaseDataActivity] = useState([]);
@@ -15,7 +14,7 @@ const Activty = ({path}) => {
     }, []);
 
     const fetchDataActivity = async () => {
-        await firebase.database().ref("/pagesPicturesData/activity").once("value")
+        await app.database().ref("/pagesPicturesData/activity").once("value")
             .then(snapshot => {
                 return setFirebaseDataActivity(Object.values(snapshot.val()));
             })

@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import StyledBackgroundSection from "../components/BackgroundSection";
-import firebase from "gatsby-plugin-firebase";
+import app from "../firebase";
 import Articles from "../components/Articles";
 
 const SecondPage = ({path}) => {
@@ -14,7 +14,7 @@ const SecondPage = ({path}) => {
     }, []);
 
     const fetchDataApartments = async () => {
-        await firebase.database().ref("/pagesPicturesData/apartments").once("value")
+        await app.database().ref("/pagesPicturesData/apartments").once("value")
             .then(snapshot => {
                 return setFirebaseDataApartments(Object.values(snapshot.val()));
             })

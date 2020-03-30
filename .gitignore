@@ -54,6 +54,9 @@ typings/
 # dotenv environment variable files
 .env*
 
+src/firebase.js
+firebase.js
+
 # gatsby files
 .cache/
 public

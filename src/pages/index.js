@@ -4,8 +4,8 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import StyledBackgroundSection from "../components/BackgroundSection";
 import Articles from "../components/Articles";
-import firebase from "gatsby-plugin-firebase";
 
+import app from "../firebase";
 
 
 const IndexPage = ({path}) => {
@@ -13,23 +13,26 @@ const IndexPage = ({path}) => {
 
     useEffect(() => {
         fetchDataHome()
+
     }, []);
 
     const fetchDataHome = async () => {
-        await firebase.database().ref("/home").once("value")
+        await app.database().ref("/home").once("value")
             .then(snapshot => {
-                setFirebaseDataHome(Object.values(snapshot.val()));
+                 setFirebaseDataHome(Object.values(snapshot.val()));
             })
             .catch((error) => {
                 console.error(error)
             })
     };
 
+
     return (
         <Layout>
             <StyledBackgroundSection pathName={path.replace("/", "")}/>
             <Articles firebaseDataArticles={firebaseDataHome} pathName={path}/>
             <SEO title="Home"/>
+
         </Layout>
     )
 };

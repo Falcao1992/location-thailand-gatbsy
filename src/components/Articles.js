@@ -24,9 +24,6 @@ const Articles = ({firebaseDataArticles, pathName}) => {
         }
     };
 
-
-    // TODO CREATE DYNAMIC LINK FOR "SEEMORE LINK"
-
     return (
         <>
             {firebaseDataArticles && firebaseDataArticles.map((article, index) => {
@@ -36,7 +33,7 @@ const Articles = ({firebaseDataArticles, pathName}) => {
                         <ArticleTittle><span>{article.name}</span>{article.title}</ArticleTittle>
                         <p>{article.content}</p>
                         {formatPathName(pathName) === "home" && <SeeMoreLink to={`/${article.key}#${article.idImage}`}><span>voir plus ></span></SeeMoreLink>}
-                        {console.log(article, "article")}
+                        {/*console.log(article, "article")*/}
                     </ArticleContent>
                 )
             })}

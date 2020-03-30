@@ -1,4 +1,3 @@
-require("dotenv").config()
 
 module.exports = {
     siteMetadata: {
@@ -13,6 +12,14 @@ module.exports = {
             resolve: `gatsby-source-filesystem`,
             options: {
                 path: `${__dirname}/src/images`,
+            },
+        },
+        {
+            resolve: `gatsby-plugin-remote-images`,
+            options: {
+                nodeType: 'firebaseData',
+                imagePath: 'urlImage',
+                name: 'fileFirebase',
             },
         },
         `gatsby-plugin-react-helmet`,
@@ -47,25 +54,12 @@ module.exports = {
             },
         },
         {
-            resolve: "gatsby-plugin-firebase",
-            options: {
-                credentials: {
-                    apiKey: process.env.GATSBY_API_KEY,
-                    authDomain: process.env.GATSBY_AUTH_DOMAIN,
-                    databaseURL: process.env.GATSBY_DATABASE_URL,
-                    projectId: process.env.GATSBY_PROJECT_ID,
-                    storageBucket: process.env.GATSBY_STORAGE_BUCKET,
-                    messagingSenderId: process.env.GATSBY_MESSAGING_SENDER_ID,
-                    appId: process.env.GATSBY_APP_ID
-                }
-            }
-        },
-        {
             resolve: `gatsby-plugin-styled-components`,
             options: {
                 // Add any options here
             },
         },
+
         // this (optional) plugin enables Progressive Web App + Offline functionality
         // To learn more, visit: https://gatsby.dev/offline
         // `gatsby-plugin-offline`,
