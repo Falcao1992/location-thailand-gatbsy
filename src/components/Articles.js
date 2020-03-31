@@ -8,9 +8,9 @@ import "typeface-pinyon-script"
 
 const Articles = ({firebaseDataArticles, pathName}) => {
 
-    const handleRenderImage = (articleImageId) => {
+    const handleRenderImage = (articleImageUrl) => {
         if(pathName) {
-            return <ImageArticle articleImageId={articleImageId}/>
+            return <ImageArticle articleImageUrl={articleImageUrl}/>
         }
     };
 
@@ -29,7 +29,7 @@ const Articles = ({firebaseDataArticles, pathName}) => {
             {firebaseDataArticles && firebaseDataArticles.map((article, index) => {
                 return (
                     <ArticleContent key={index}>
-                        {handleRenderImage(article.idImage)}
+                        {handleRenderImage(article.urlImage)}
                         <ArticleTittle><span>{article.name}</span>{article.title}</ArticleTittle>
                         <p>{article.content}</p>
                         {formatPathName(pathName) === "home" && <SeeMoreLink to={`/${article.key}#${article.idImage}`}><span>voir plus ></span></SeeMoreLink>}

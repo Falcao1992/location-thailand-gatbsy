@@ -13,11 +13,10 @@ const IndexPage = ({path}) => {
 
     useEffect(() => {
         fetchDataHome()
-
     }, []);
 
     const fetchDataHome = async () => {
-        await app.database().ref("/home").once("value")
+        await app.database().ref("/pagesPicturesData/home").once("value")
             .then(snapshot => {
                  setFirebaseDataHome(Object.values(snapshot.val()));
             })
@@ -32,7 +31,6 @@ const IndexPage = ({path}) => {
             <StyledBackgroundSection pathName={path.replace("/", "")}/>
             <Articles firebaseDataArticles={firebaseDataHome} pathName={path}/>
             <SEO title="Home"/>
-
         </Layout>
     )
 };

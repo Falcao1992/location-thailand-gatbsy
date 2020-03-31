@@ -26,7 +26,7 @@ const About = ({path}) => {
     return (
         <Layout>
             <SEO title="Activity"/>
-            <StyledBackgroundSection pathName={path.replace("/", "")}/>
+            {<StyledBackgroundSection pathName={path.replace("/", "")}/>}
             <Articles firebaseDataArticles={firebaseDataAbout} pathName={path}/>
         </Layout>
     )

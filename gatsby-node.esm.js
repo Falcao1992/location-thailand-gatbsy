@@ -28,24 +28,27 @@ exports.sourceNodes = async ({
         .then(snapshot => {
             return flattenTranslations(snapshot.val());
         });
-    //console.log(fetchDataFirebase, "fetchDataFirebase");
 
 
     for (const result of fetchDataFirebase) {
         const nodeId = createNodeId(`${result.idImage}`);
         const nodeContent = JSON.stringify(result);
+        //console.log(result, "result")
         const node = Object.assign({}, result, {
-            id: nodeId,
-            originalId: result.key,
-            parent: result.key,
+            id: nodeId ,
+            originalId: result.idImage,
+            parent: result.idImage,
             children: [],
+            page: result.page,
             title: result.title,
+            type:result.type,
             internal: {
                 type: "firebaseData",
                 content: nodeContent,
                 contentDigest: createContentDigest(result)
             }
         });
+        console.log(node, "node")
         createNode(node);
     }
 };

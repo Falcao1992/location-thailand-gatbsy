@@ -9,57 +9,45 @@ import PropTypes from "prop-types";
 const BackgroundSection = ({ className, pathName }) => {
 
     const data = useStaticQuery(graphql`
-        query {
-      
-            homeBanner: file(relativePath: { eq: "banner/homeBanner.jpg" }) {
-                childImageSharp {
-                    fluid(quality: 90, maxWidth: 1920) {
-                        ...GatsbyImageSharpFluid_withWebp
-                    }
-                }
-            }
-            
-            apartmentsBanner: file(relativePath: { eq: "banner/apartmentsBanner.jpg" }) {
-                childImageSharp {
-                    fluid(quality: 90, maxWidth: 1920) {
-                        ...GatsbyImageSharpFluid_withWebp
-                    }
-                }
-            }
-            activityBanner: file(relativePath: { eq: "banner/activityBanner.jpg" }) {
-                childImageSharp {
-                    fluid(quality: 90, maxWidth: 1920) {
-                        ...GatsbyImageSharpFluid_withWebp
-                    }
-                }
-            }
-            aboutBanner: file(relativePath: { eq: "banner/aboutBanner.jpg" }) {
-                childImageSharp {
-                    fluid(quality: 90, maxWidth: 1920) {
-                        ...GatsbyImageSharpFluid_withWebp
+        {
+            allImageSharp {
+                edges {
+                    node {
+                        id
+                        parent {
+                            parent {
+                                ... on firebaseData {
+                                    urlImage
+                                    type
+                                    page
+                                }
+                            }
+                        }
+                        fluid(sizes: "") {
+                            base64
+                            originalImg
+                            srcSet
+                            src
+                            sizes
+                            aspectRatio
+                            originalName
+                        }
                     }
                 }
             }
         }
     `);
 
-    const homeBanner = data.homeBanner.childImageSharp.fluid;
-    const apartmentsBanner = data.apartmentsBanner.childImageSharp.fluid;
-    const aboutBanner = data.aboutBanner.childImageSharp.fluid;
-    const activityBanner = data.activityBanner.childImageSharp.fluid;
+    const allImagesDataBanner = data.allImageSharp.edges;
 
     const handleChooseBackgroundImage = () => {
         if(pathName === "") {
-            return homeBanner
-        } else if (pathName === "apartments/") {
-            return apartmentsBanner
-        } else if (pathName === "activity/") {
-            return activityBanner
-        } else if (pathName === "about/") {
-            return aboutBanner
+            pathName = "home"
         } else {
-            console.log("else", pathName)
+            pathName = pathName.replace("/","")
         }
+        const imageFilter = allImagesDataBanner.filter(imageFilter => imageFilter.node.parent.parent.type === "banner" && imageFilter.node.parent.parent.page === pathName);
+        return imageFilter[0].node.fluid
     };
 
     return (
@@ -67,7 +55,7 @@ const BackgroundSection = ({ className, pathName }) => {
             Tag="section"
             className={className}
             fluid={handleChooseBackgroundImage()}
-            //backgroundColor={`#040e18`}
+            backgroundColor={`#040e18`}
         >
             <TopBar>
                 <div>

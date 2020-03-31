@@ -2,7 +2,7 @@ import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
 import styled from "styled-components";
-const ImageArticle = ( { articleImageId } ) => {
+const ImageArticle = ( { articleImageUrl } ) => {
 
     const data = useStaticQuery(graphql`
         {
@@ -10,6 +10,14 @@ const ImageArticle = ( { articleImageId } ) => {
                 edges {
                     node {
                         id
+                        parent {
+                            parent {
+                                ... on firebaseData {
+                                    urlImage
+                                    type
+                                }
+                            }
+                        }
                         fluid(sizes: "") {
                             base64
                             originalImg
@@ -26,11 +34,10 @@ const ImageArticle = ( { articleImageId } ) => {
     `);
 
     const allImagesData = data.allImageSharp.edges;
-    console.log(allImagesData, "all data image")
 
     return (
         <div>
-            {allImagesData.filter(imageFilter => imageFilter.node.id === articleImageId).map((image, index) => {
+            {allImagesData.filter(imageFilter => imageFilter.node.parent.parent.urlImage === articleImageUrl).map((image, index) => {
                 return (
                     <div id={image.node.id} key={index}>
                         <StyledImg
