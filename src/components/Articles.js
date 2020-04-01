@@ -2,6 +2,7 @@ import React from 'react'
 import {Link} from 'gatsby'
 import styled from 'styled-components'
 import ImageArticle from "./ImageArticle";
+import {formatPathName} from "./globalFunction/globalFunction";
 
 import "typeface-pinyon-script"
 
@@ -15,14 +16,16 @@ const Articles = ({firebaseDataArticles, pathName}) => {
     };
 
     // get path and change /apartments/ to apartments and / to home
-    const formatPathName = (path) => {
+    /*const formatPathName = (path) => {
         const regex = new RegExp("/", "g");
         if (path === "/") {
             return "home"
         } else {
             return path.replace(regex, "")
         }
-    };
+    };*/
+
+
 
     return (
         <>
@@ -30,9 +33,9 @@ const Articles = ({firebaseDataArticles, pathName}) => {
                 return (
                     <ArticleContent key={index}>
                         {handleRenderImage(article.urlImage)}
-                        <ArticleTittle><span>{article.name}</span>{article.title}</ArticleTittle>
+                        <ArticleTittle><span>{article.articleTitle}</span>{article.location}</ArticleTittle>
                         <p>{article.content}</p>
-                        {formatPathName(pathName) === "home" && <SeeMoreLink to={`/${article.key}#${article.idImage}`}><span>voir plus ></span></SeeMoreLink>}
+                        {formatPathName(pathName) === "home" && <SeeMoreLink to={`/${article.page}#${article.uid}`}><span>voir plus ></span></SeeMoreLink>}
                         {/*console.log(article, "article")*/}
                     </ArticleContent>
                 )
@@ -47,10 +50,10 @@ const Articles = ({firebaseDataArticles, pathName}) => {
           margin-bottom: 20px
     `;
 
-    const ArticleTittle = styled.h2`
-        font-size: 1.7rem;
+    const ArticleTittle = styled.h3`
+        font-size: 1.2rem;
         text-transform: uppercase;
-        letter-spacing: 2px;
+        letter-spacing: 1px;
         line-height: 1.2;
         margin-left: 5px;
            span {

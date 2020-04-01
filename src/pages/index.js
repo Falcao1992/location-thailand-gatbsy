@@ -28,7 +28,7 @@ const IndexPage = ({path}) => {
 
     return (
         <Layout>
-            <StyledBackgroundSection pathName={path.replace("/", "")}/>
+            <StyledBackgroundSection pathName={path}/>
             <Articles firebaseDataArticles={firebaseDataHome} pathName={path}/>
             <SEO title="Home"/>
         </Layout>

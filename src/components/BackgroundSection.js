@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import "typeface-pinyon-script"
 import BackgroundImage from 'gatsby-background-image-es5'
 import PropTypes from "prop-types";
+import {formatPathName} from "./globalFunction/globalFunction";
 
 
 const BackgroundSection = ({ className, pathName }) => {
@@ -41,11 +42,9 @@ const BackgroundSection = ({ className, pathName }) => {
     const allImagesDataBanner = data.allImageSharp.edges;
 
     const handleChooseBackgroundImage = () => {
-        if(pathName === "") {
-            pathName = "home"
-        } else {
-            pathName = pathName.replace("/","")
-        }
+        console.log(pathName)
+        pathName = formatPathName(pathName)
+        console.log("pathNameBackground",pathName)
         const imageFilter = allImagesDataBanner.filter(imageFilter => imageFilter.node.parent.parent.type === "banner" && imageFilter.node.parent.parent.page === pathName);
         return imageFilter[0].node.fluid
     };

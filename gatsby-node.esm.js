@@ -31,13 +31,13 @@ exports.sourceNodes = async ({
 
 
     for (const result of fetchDataFirebase) {
-        const nodeId = createNodeId(`${result.idImage}`);
+        const nodeId = createNodeId(`${result.uid}`);
         const nodeContent = JSON.stringify(result);
         //console.log(result, "result")
         const node = Object.assign({}, result, {
             id: nodeId ,
-            originalId: result.idImage,
-            parent: result.idImage,
+            originalId: result.uid,
+            parent: result.uid,
             children: [],
             page: result.page,
             title: result.title,
