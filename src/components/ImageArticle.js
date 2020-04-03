@@ -15,6 +15,7 @@ const ImageArticle = ( { articleImageUrl } ) => {
                                 ... on firebaseData {
                                     urlImage
                                     type
+                                    name
                                 }
                             }
                         }
@@ -39,7 +40,7 @@ const ImageArticle = ( { articleImageUrl } ) => {
         <div>
             {allImagesData.filter(imageFilter => imageFilter.node.parent.parent.urlImage === articleImageUrl).map((image, index) => {
                 return (
-                    <div id={image.node.id} key={index}>
+                    <div key={index}>
                         <StyledImg
                             fluid={image.node.fluid}
                             alt={image.node.fluid.originalName.replace(/.jpg/||/.png/, "")}

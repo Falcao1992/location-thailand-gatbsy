@@ -5,6 +5,7 @@ import "typeface-pinyon-script"
 import BackgroundImage from 'gatsby-background-image-es5'
 import PropTypes from "prop-types";
 import {formatPathName} from "./globalFunction/globalFunction";
+import "./BackgroundSection.css"
 
 
 const BackgroundSection = ({ className, pathName }) => {
@@ -49,22 +50,28 @@ const BackgroundSection = ({ className, pathName }) => {
         return imageFilter[0].node.fluid
     };
 
+    const pathMatch = (pathPage) => {
+        if(pathName === pathPage) {
+            return "linkActive"
+        }
+    };
+
     return (
         <BackgroundImage
             Tag="section"
             className={className}
             fluid={handleChooseBackgroundImage()}
-            backgroundColor={`#040e18`}
+            //backgroundColor={`#040e18`}
         >
             <TopBar>
                 <div>
-                    <Link to="/" ><MenuItem>Location d'Appartements à Pattaya</MenuItem></Link>
+                    <Link to="/" ><MenuItem className={pathMatch("home")}>Location d'Appartements à Pattaya</MenuItem></Link>
                 </div>
                 <nav>
-                    <Link to="/apartments" ><MenuItem>Appartement</MenuItem></Link>
-                    <Link to="/activity"><MenuItem>Activité</MenuItem></Link>
-                    <Link to="/about"><MenuItem>A Savoir</MenuItem></Link>
-                    <Link to="/"><MenuItem>Nous contacter</MenuItem></Link>
+                    <Link  to="/apartments"><MenuItem className={pathMatch("apartments")}>Appartement</MenuItem></Link>
+                    <Link  to="/activity"><MenuItem className={pathMatch("activity")}>Activité</MenuItem></Link>
+                    <Link  to="/about"><MenuItem className={pathMatch("about")}>A Savoir</MenuItem></Link>
+                    <Link  to="/"><MenuItem className={pathMatch("home")}>Nous contacter</MenuItem></Link>
                 </nav>
             </TopBar>
             <Baseline>

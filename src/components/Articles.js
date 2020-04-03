@@ -31,11 +31,11 @@ const Articles = ({firebaseDataArticles, pathName}) => {
         <>
             {firebaseDataArticles && firebaseDataArticles.map((article, index) => {
                 return (
-                    <ArticleContent key={index}>
+                    <ArticleContent id={article.name} key={index}>
                         {handleRenderImage(article.urlImage)}
-                        <ArticleTittle><span>{article.articleTitle}</span>{article.location}</ArticleTittle>
+                        <ArticleLocation><span>{article.articleTitle}</span>{article.location}</ArticleLocation>
                         <p>{article.content}</p>
-                        {formatPathName(pathName) === "home" && <SeeMoreLink to={`/${article.page}#${article.uid}`}><span>voir plus ></span></SeeMoreLink>}
+                        {formatPathName(pathName) === "home" && <SeeMoreLink to={`/${article.page}`}><span>voir plus ></span></SeeMoreLink>}
                         {/*console.log(article, "article")*/}
                     </ArticleContent>
                 )
@@ -50,8 +50,8 @@ const Articles = ({firebaseDataArticles, pathName}) => {
           margin-bottom: 20px
     `;
 
-    const ArticleTittle = styled.h3`
-        font-size: 1.2rem;
+    const ArticleLocation = styled.h3`
+        font-size: 0.9rem;
         text-transform: uppercase;
         letter-spacing: 1px;
         line-height: 1.2;
