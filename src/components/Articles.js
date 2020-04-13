@@ -15,39 +15,46 @@ const Articles = ({firebaseDataArticles, pathName}) => {
         }
     };
 
-    // get path and change /apartments/ to apartments and / to home
-    /*const formatPathName = (path) => {
-        const regex = new RegExp("/", "g");
-        if (path === "/") {
-            return "home"
-        } else {
-            return path.replace(regex, "")
-        }
-    };*/
-
-
-
     return (
-        <>
+        <ContainerBodyPage>
             {firebaseDataArticles && firebaseDataArticles.map((article, index) => {
                 return (
                     <ArticleContent id={article.name} key={index}>
                         {handleRenderImage(article.urlImage)}
+                        <ArticleBody>
                         <ArticleLocation><span>{article.articleTitle}</span>{article.location}</ArticleLocation>
                         <p>{article.content}</p>
                         {formatPathName(pathName) === "home" && <SeeMoreLink to={`/${article.page}`}><span>voir plus ></span></SeeMoreLink>}
-                        {/*console.log(article, "article")*/}
+                        </ArticleBody>
                     </ArticleContent>
                 )
             })}
 
-        </>
+        </ContainerBodyPage>
     )
 };
 
+const ContainerBodyPage = styled.div `
+    display: flex;
+    flex-direction: column;
+    `
+
+const ArticleBody = styled.div `
+    align-self: center;
+    @media only screen and (min-width:980px) {      
+              width: 40%;                     
+            }
+    `
+
     const ArticleContent = styled.div`
-          padding: 5px 10px;
-          margin-bottom: 20px
+          padding: 5px 10px;       
+          margin-bottom: 20px;
+          @media only screen and (min-width:980px) {      
+              width: 70%;
+                margin: 50px auto;
+                display: flex;
+                justify-content: flex-start;            
+            }
     `;
 
     const ArticleLocation = styled.h3`
