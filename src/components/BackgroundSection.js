@@ -73,7 +73,7 @@ const BackgroundSection = ({ className, pathName }) => {
                     <Link  to="/apartments"><MenuItem className={pathMatch("apartments")}>Appartement</MenuItem></Link>
                     <Link  to="/activity"><MenuItem className={pathMatch("activity")}>Activité</MenuItem></Link>
                     <Link  to="/about"><MenuItem className={pathMatch("about")}>A Savoir</MenuItem></Link>
-                    <Link  to="/"><MenuItem className={pathMatch("home")}>Nous contacter</MenuItem></Link>
+                    <Link  to="/contact"><MenuItem className={pathMatch("contact")}>Nous contacter</MenuItem></Link>
                 </nav>
             </TopBar>
             <Baseline>
