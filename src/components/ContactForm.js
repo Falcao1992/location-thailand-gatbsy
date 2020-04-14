@@ -1,12 +1,8 @@
 import React, {useState} from "react";
 import styled from "styled-components";
-import {Button, TextField, Container, Input, MenuItem, Select, InputLabel, CardMedia} from "@material-ui/core";
-import {
-    MuiPickersUtilsProvider,
-    KeyboardDatePicker,
-} from '@material-ui/pickers';
+import {Button, TextField, Container} from "@material-ui/core";
+import app from "../firebase";
 
-import DateFnsUtils from '@date-io/date-fns';
 
 const ContactForm = () => {
     const data = {
@@ -26,9 +22,18 @@ const ContactForm = () => {
     };
 
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const newPostKey = app.database().ref("contactMessage").push().key;
+        app.database().ref(`contactMessage`).update({
+            [newPostKey] : formData
+        });
+        console.log("forulaire envoyé")
+    };
+
     return (
-        <div>
-            <FormStyled autoComplete="off">
+        <Container fixed>
+            <FormStyled onSubmit={handleSubmit} autoComplete="off">
 
                 <TextFieldStyled onChange={handleChange} value={name}
                                  required
@@ -46,15 +51,7 @@ const ContactForm = () => {
                                  variant="outlined"
                 />
 
-                <TextFieldStyled onChange={handleChange} value={message}
-                                 multiline
-                                 rowsMax="4"
-                                 required
-                                 id="message"
-                                 label="message" variant="outlined"
-                />
-
-                <TextField
+                <TextFieldStyled
                     id="dateStartReservation"
                     label="dateStartReservation"
                     type="date"
@@ -65,7 +62,7 @@ const ContactForm = () => {
                     }}
                 />
 
-                <TextField
+                <TextFieldStyled
                     id="dateEndReservation"
                     label="dateEndReservation"
                     type="date"
@@ -74,6 +71,14 @@ const ContactForm = () => {
                     InputLabelProps={{
                         shrink: true,
                     }}
+                />
+
+                <TextFieldStyled onChange={handleChange} value={message}
+                                 multiline
+                                 rowsMax="4"
+                                 required
+                                 id="message"
+                                 label="message" variant="outlined"
                 />
 
                 <TextFieldStyled onChange={handleChange} value={mail} required
@@ -87,12 +92,10 @@ const ContactForm = () => {
                                  label="phoneNumber" variant="outlined"
                 />
 
-
-                <ButtonCreate variant="contained" onClick={() => console.log("soumission du formulaire")} color="primary"
+                <ButtonCreate variant="contained" type="submit" color="primary"
                               aria-label="edit">create</ButtonCreate>
             </FormStyled>
-
-        </div>
+        </Container>
     )
 };
 
@@ -103,7 +106,6 @@ const FormStyled = styled.form`
              margin-bottom: 15px;
          }
         `;
-
 
 const TextFieldStyled = styled(TextField)`
         width: 100%;
