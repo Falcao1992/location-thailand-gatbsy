@@ -1,3 +1,6 @@
+require("dotenv").config({
+    path: `.env.${process.env.NODE_ENV}`,
+});
 
 module.exports = {
     siteMetadata: {
@@ -6,6 +9,7 @@ module.exports = {
         author: `@gatsbyjs`,
     },
     plugins: [
+        `gatsby-plugin-netlify`,
         `gatsby-plugin-sharp`,
         `gatsby-transformer-sharp`,
         {
