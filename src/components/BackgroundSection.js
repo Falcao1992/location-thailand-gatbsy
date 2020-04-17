@@ -40,17 +40,13 @@ const BackgroundSection = ({ className, pathName }) => {
         }
     `);
 
-    const allImagesDataBanner = data.allImageSharp.edges;
-
     const handleChooseBackgroundImage = () => {
-        console.log(pathName)
-        pathName = formatPathName(pathName)
-        console.log("pathNameBackground",pathName)
-        const imageFilter = allImagesDataBanner.filter(imageFilter => imageFilter.node.parent.parent.type === "banner" && imageFilter.node.parent.parent.page === pathName);
-        return [`linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(28, 28, 28, 0.1))`, imageFilter[0].node.fluid]
-
-        //linear-gradient(180deg, rgba(0, 0, 0, 0.95), rgba(28, 28, 28, 0.3)),
+            const allImagesDataBanner = data.allImageSharp.edges;
+            pathName = formatPathName(pathName)
+            const imageFilter = allImagesDataBanner.filter(imageFilter => imageFilter.node.parent.parent.type === "banner" && imageFilter.node.parent.parent.page === pathName);
+            return [`linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(28, 28, 28, 0.1))`, imageFilter[0].node.fluid]
     };
+
 
     const pathMatch = (pathPage) => {
         if(pathName === pathPage) {

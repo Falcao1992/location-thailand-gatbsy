@@ -41,6 +41,7 @@ const ImageArticle = ({articleImageUrl}) => {
 
     const allImagesData = data.allImageSharp.edges;
 
+
     return (
         <>
             {allImagesData.filter(imageFilter => imageFilter.node.parent.parent.urlImage === articleImageUrl).map((image, index) => {
