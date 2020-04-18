@@ -25,13 +25,7 @@ const BackgroundSection = ({ className, pathName }) => {
                             }
                         }
                         fluid(sizes: "") {
-                            base64
-                            originalImg
-                            srcSet
-                            src
-                            sizes
-                            aspectRatio
-                            originalName
+                            ...GatsbyImageSharpFluid
                         }
                     }
                 }
