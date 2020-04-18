@@ -1,5 +1,4 @@
 import {getFirebase} from "./src/firebase";
-const slugify = require("slugify");
 
 exports.sourceNodes = async ({
                                  actions,
@@ -27,7 +26,7 @@ exports.sourceNodes = async ({
     const lazyApp = import('firebase/app')
     const lazyDatabase = import('firebase/database')
 
-    Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
+    await Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
         getFirebase(firebase).database().ref("/").once("value")
             .then(snapshot => {
                 for (const result of flattenTranslations(snapshot.val())) {
