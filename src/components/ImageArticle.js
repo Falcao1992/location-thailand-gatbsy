@@ -20,7 +20,7 @@ const ImageArticle = ({articleImageUrl}) => {
                                 }
                             }
                         }
-                        fluid(maxWidth: 400, maxHeight: 250) {
+                        fluid(sizes: "130 783") {
                             base64
                             originalImg
                             srcSet
