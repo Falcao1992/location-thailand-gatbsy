@@ -3,12 +3,12 @@ import {graphql, Link, useStaticQuery} from 'gatsby'
 import styled from 'styled-components'
 import "typeface-pinyon-script"
 import BackgroundImage from 'gatsby-background-image-es5'
-import PropTypes from "prop-types";
+
 import {formatPathName} from "./globalFunction/globalFunction";
 import "./BackgroundSection.css"
 
 
-const BackgroundSection = ({ className, pathName }) => {
+const BackgroundSection = ({className, pathName}) => {
 
     const data = useStaticQuery(graphql`
         {
@@ -38,7 +38,7 @@ const BackgroundSection = ({ className, pathName }) => {
     const handleChooseBackgroundImage = () => {
         console.log(pathName)
         pathName = formatPathName(pathName)
-        console.log("pathNameBackground",pathName)
+        console.log("pathNameBackground", pathName)
         const imageFilter = allImagesDataBanner.filter(imageFilter => imageFilter.node.parent.parent.type === "banner" && imageFilter.node.parent.parent.page === pathName);
         return [`linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(28, 28, 28, 0.1))`, imageFilter[0].node.fluid]
 
@@ -46,35 +46,39 @@ const BackgroundSection = ({ className, pathName }) => {
     };
 
     const pathMatch = (pathPage) => {
-        if(pathName === pathPage) {
+        if (pathName === pathPage) {
             return "linkActive"
         }
     };
 
     return (
-        <BackgroundImage
-            Tag="section"
-            className={className}
-            fluid={handleChooseBackgroundImage()}
-            //backgroundColor={`#040e18`}
-        >
-            <TopBar>
-                <div>
-                    <Link to="/" ><MenuItem className={pathMatch("home")}>Location d'Appartements à Pattaya</MenuItem></Link>
-                </div>
-                <nav>
-                    <Link  to="/apartments"><MenuItem className={pathMatch("apartments")}>Appartement</MenuItem></Link>
-                    <Link  to="/activity"><MenuItem className={pathMatch("activity")}>Activité</MenuItem></Link>
-                    <Link  to="/about"><MenuItem className={pathMatch("about")}>A Savoir</MenuItem></Link>
-                    <Link  to="/contact"><MenuItem className={pathMatch("contact")}>Nous contacter</MenuItem></Link>
-                </nav>
-            </TopBar>
-            <Baseline>
-                <span>welcome</span>
-                <strong>Pattaya</strong>
-                <p>des appartements pour vos vacances</p>
-            </Baseline>
-        </BackgroundImage>
+        <>
+            <BackgroundImage
+                Tag="section"
+                className={className}
+                fluid={handleChooseBackgroundImage()}
+                //backgroundColor={`#040e18`}
+            >
+                <TopBar>
+                    <div>
+                        <Link to="/"><MenuItem className={pathMatch("home")}>Location d'Appartements à
+                            Pattaya</MenuItem></Link>
+                    </div>
+                    <nav>
+                        <Link to="/apartments"><MenuItem
+                            className={pathMatch("apartments")}>Appartement</MenuItem></Link>
+                        <Link to="/activity"><MenuItem className={pathMatch("activity")}>Activité</MenuItem></Link>
+                        <Link to="/about"><MenuItem className={pathMatch("about")}>A Savoir</MenuItem></Link>
+                        <Link to="/contact"><MenuItem className={pathMatch("contact")}>Nous contacter</MenuItem></Link>
+                    </nav>
+                </TopBar>
+                <Baseline>
+                    <span>welcome</span>
+                    <strong>Pattaya</strong>
+                    <p>des appartements pour vos vacances</p>
+                </Baseline>
+            </BackgroundImage>
+        </>
     )
 };
 
@@ -130,13 +134,6 @@ const Baseline = styled.div`
         }
     `;
 
-BackgroundSection.propTypes = {
-    siteTitle: PropTypes.string,
-};
-
-BackgroundSection.defaultProps = {
-    siteTitle: ``,
-};
 
 
-export default StyledBackgroundSection
+export default BackgroundSection

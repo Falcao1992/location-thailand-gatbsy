@@ -29,7 +29,7 @@ const IndexPage = ({path}) => {
 
     return (
         <Layout>
-            {path && <StyledBackgroundSection pathName={path}/>}
+            {typeof window !== `undefined` ? <StyledBackgroundSection pathName={path}/> : null}
             {<Articles firebaseDataArticles={firebaseDataHome} pathName={path}/>}
             <SEO title="Home"/>
         </Layout>
