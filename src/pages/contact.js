@@ -8,7 +8,7 @@ const Contact = ({path}) => {
     return (
         <Layout>
             <SEO title="Contact"/>
-            {/*<StyledBackgroundSection pathName={path.replace("/", "")}/>*/}
+            {typeof window !== `undefined` && <StyledBackgroundSection pathName={path.replace("/", "")}/>}
             <ContactForm/>
         </Layout>
     )

@@ -27,7 +27,7 @@ const SecondPage = ({path}) => {
     return (
         <Layout>
             <SEO title="Apartments"/>
-            {/*<StyledBackgroundSection pathName={path.replace("/", "")}/>*/}
+            {typeof window !== `undefined` && <StyledBackgroundSection pathName={path.replace("/", "")}/>}
             {<Articles firebaseDataArticles={firebaseDataApartments} pathName={path}/>}
         </Layout>
     )

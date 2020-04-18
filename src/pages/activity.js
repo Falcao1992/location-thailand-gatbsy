@@ -27,7 +27,7 @@ const Activty = ({path}) => {
     return (
         <Layout>
             <SEO title="Activity"/>
-            {/*<StyledBackgroundSection pathName={path.replace("/", "")}/>*/}
+            {typeof window !== `undefined` && <StyledBackgroundSection pathName={path.replace("/", "")}/>}
             {<Articles firebaseDataArticles={firebaseDataActivity} pathName={path}/>}
         </Layout>
     )
