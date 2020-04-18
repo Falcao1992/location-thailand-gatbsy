@@ -19,7 +19,6 @@ const BackgroundSection = ({ className, pathName }) => {
                         parent {
                             parent {
                                 ... on firebaseData {
-                                    urlImage
                                     type
                                     page
                                 }

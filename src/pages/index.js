@@ -5,31 +5,32 @@ import SEO from "../components/seo"
 import StyledBackgroundSection from "../components/BackgroundSection";
 import Articles from "../components/Articles";
 
-import app from "../firebase";
+import {getFirebase} from "../firebase";
 
 
 const IndexPage = ({path}) => {
     const [firebaseDataHome, setFirebaseDataHome] = useState([]);
 
     useEffect(() => {
-        fetchDataHome()
-    }, []);
+        const lazyApp = import('firebase/app')
+        const lazyDatabase = import('firebase/database')
 
-    const fetchDataHome = async () => {
-        await app.database().ref("/pagesPicturesData/home").once("value")
-            .then(snapshot => {
-                 setFirebaseDataHome(Object.values(snapshot.val()));
-            })
-            .catch((error) => {
-                console.error(error)
-            })
-    };
+        Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
+            getFirebase(firebase).database().ref("/pagesPicturesData/home").once("value")
+                .then(snapshot => {
+                    setFirebaseDataHome(Object.values(snapshot.val()));
+                })
+                .catch((error) => {
+                    console.error(error)
+                })
+        })
+    }, []);
 
 
     return (
         <Layout>
-            <StyledBackgroundSection pathName={path}/>
-            <Articles firebaseDataArticles={firebaseDataHome} pathName={path}/>
+            {<StyledBackgroundSection pathName={path}/>}
+            {<Articles firebaseDataArticles={firebaseDataHome} pathName={path}/>}
             <SEO title="Home"/>
         </Layout>
     )
