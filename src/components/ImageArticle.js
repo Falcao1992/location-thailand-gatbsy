@@ -35,7 +35,6 @@ const ImageArticle = ({articleImageUrl}) => {
     `);
 
     const allImagesData = data.allImageSharp.edges;
-    console.log("allImagesData", allImagesData)
 
     return (
         <>
