@@ -8,7 +8,7 @@ const Contact = ({path}) => {
     return (
         <Layout>
             <SEO title="Contact"/>
-            {<StyledBackgroundSection pathName={path.replace("/", "")}/>}
+            {/*<StyledBackgroundSection pathName={path.replace("/", "")}/>*/}
             <ContactForm/>
         </Layout>
     )
