@@ -12,8 +12,8 @@ module.exports = {
         {
             resolve: `gatsby-source-filesystem`,
             options: {
-                name: `ImageLocal`,
-                path: `${__dirname}/src/images/ImageLocal`,
+                name: `pages`,
+                path: `${__dirname}/src/images/pages`,
             },
         },
         `gatsby-plugin-netlify`,
