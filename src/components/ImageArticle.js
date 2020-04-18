@@ -20,13 +20,8 @@ const ImageArticle = ({articleImageUrl}) => {
                                 }
                             }
                         }
-                        fluid(sizes: "130 783") {
-                            base64
-                            originalImg
-                            srcSet
-                            src
-                            sizes
-                            aspectRatio
+                        fluid(maxWidth: 1000) {
+                            ...GatsbyImageSharpFluid
                             originalName
                         }
                         resolutions {
@@ -40,6 +35,7 @@ const ImageArticle = ({articleImageUrl}) => {
     `);
 
     const allImagesData = data.allImageSharp.edges;
+    console.log("allImagesData", allImagesData)
 
     return (
         <>

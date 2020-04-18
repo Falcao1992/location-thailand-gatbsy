@@ -9,6 +9,13 @@ module.exports = {
         author: `@gatsbyjs`,
     },
     plugins: [
+        {
+            resolve: `gatsby-source-filesystem`,
+            options: {
+                name: `images`,
+                path: `${__dirname}/src/images/imageLocal`,
+            },
+        },
         `gatsby-plugin-netlify`,
         `gatsby-plugin-sharp`,
         `gatsby-transformer-sharp`,
