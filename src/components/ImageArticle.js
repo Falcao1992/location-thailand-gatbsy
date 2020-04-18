@@ -20,7 +20,7 @@ const ImageArticle = ({articleImageUrl}) => {
                                 }
                             }
                         }
-                        fluid(maxWidth: 450) {
+                        fluid(maxWidth: 400, maxHeight: 250) {
                             ...GatsbyImageSharpFluid
                             originalName
                         }
